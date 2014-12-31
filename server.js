@@ -31,16 +31,21 @@ var router = express.Router();
 // Create our Express application
 var app = express();
 
-// Register all our routes with /api
-app.use('/api', router);
-
 logger.debug("Overriding 'Express' logger");
 app.use(require('morgan')('combined', { "stream": logger.stream }));
+
+// MVC module config (after all the rest, otherwise it may fail)
+var load = require('express-load');
+//load('models').then('controllers').then('routes').into(app);
+load('models').into(app);
+
+// Register all our routes with /api
+app.use('/api', router);
 
 // Initial dummy route for testing
 // http://localhost:3000/api
 router.get('/', function(req, res) {
-  res.json({ message: 'You are running dangerously low on beer!' });
+  res.json({ message: 'Burn the Witch!' });
 });
 
 // Start the server
