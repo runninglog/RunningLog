@@ -1,6 +1,9 @@
 // Get the packages we need
 var express = require('express');
 var mongoose = require('mongoose');
+var bodyParser = require('body-parser');
+var morgan = require('morgan');
+var expressLoad = require('express-load');
 
 var logger = require('./utils/logger');
 
@@ -25,27 +28,30 @@ db.once('open', function callback() {
 // Use environment defined port or 3000
 var port = process.env.PORT || 3000;
 
-// Create our Express router
-var router = express.Router();
-
 // Create our Express application
 var app = express();
 
+// Use the body-parser package in our application
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+
 logger.debug("Overriding 'Express' logger");
-app.use(require('morgan')('combined', { "stream": logger.stream }));
+app.use(morgan('combined', { "stream": logger.stream }));
 
 // MVC module config (after all the rest, otherwise it may fail)
-var load = require('express-load');
-//load('models').then('controllers').then('routes').into(app);
-load('models').then('controllers').into(app);
+expressLoad('models').then('controllers').then('routes').into(app);
 
-// Register all our routes with /api
-app.use('/api', router);
+// Generic handler for unmapped routes
+app.use(function(req, res) {
+    logger.info('Not found: ' + req.path);
+    res.sendStatus(404);
+});
 
-// Initial dummy route for testing
-// http://localhost:3000/api
-router.get('/', function(req, res) {
-  res.json({ message: 'Burn the Witch!' });
+// Generic handler for internal server errors
+app.use(function(err, req, res, next) {
+    logger.error('Internal server error: ' + err);
+    res.sendStatus(500);
 });
 
 // Start the server

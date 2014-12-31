@@ -3,12 +3,12 @@ module.exports = function(){
     var mongoose = require('mongoose');
 
     // Define our race schema
-    var RaceSchema   = new mongoose.Schema({
+    var raceSchema   = new mongoose.Schema({
         name: String,
         city: String,
         distance: Number
     });
 
     // Return the Mongoose model
-    return mongoose.model('Race', RaceSchema);
+    return mongoose.model('races', raceSchema);
 };
