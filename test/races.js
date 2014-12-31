@@ -57,7 +57,7 @@ describe('Races RESTful API', function(){
     });
 
     it('updates a race by id', function(done){
-        raceBody.name = "NEW New Race #1"
+        raceBody.name = "NEW New Race #1";
         supertest(url)
         .put(api + raceId)
         .send(raceBody)
@@ -103,8 +103,8 @@ describe('Races RESTful API', function(){
         .end(function(err, res) {
             if (err)
                 throw err;
-            (res.body.length >= 1).should.be.ok;
-            res.body.raceIdExist(raceId).should.be.ok;
+            (res.body.length >= 1).should.equal(true);
+            (res.body.raceIdExist(raceId)).should.equal(true);
             done();
         });
     });
@@ -145,8 +145,8 @@ describe('Races RESTful API', function(){
         .end(function(err, res) {
             if (err)
                 throw err;
-            (!res.body.raceIdExist(raceId)).should.be.ok;
+            (!res.body.raceIdExist(raceId)).should.equal(true);
             done();
         });
     });
-})
+});

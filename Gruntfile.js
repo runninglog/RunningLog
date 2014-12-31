@@ -9,6 +9,7 @@ module.exports = function(grunt) {
                 'controllers/**/*.js',
                 'models/**/*.js',
                 'routes/**/*.js',
+                'test/**/*.js',
                 'utils/**/*.js'
             ]
         }
@@ -17,5 +18,5 @@ module.exports = function(grunt) {
     // Each plugin must be loaded following this pattern
     grunt.loadNpmTasks('grunt-contrib-jshint');
 
-    grunt.registerTask('review', ['jshint:serverFiles']);
+    grunt.registerTask('lint', ['jshint:serverFiles']);
 };
