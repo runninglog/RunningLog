@@ -37,7 +37,7 @@ app.use(require('morgan')('combined', { "stream": logger.stream }));
 // MVC module config (after all the rest, otherwise it may fail)
 var load = require('express-load');
 //load('models').then('controllers').then('routes').into(app);
-load('models').into(app);
+load('models').then('controllers').into(app);
 
 // Register all our routes with /api
 app.use('/api', router);
