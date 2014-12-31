@@ -1,11 +1,21 @@
 var winston = require('winston');
+var fs = require('fs');
+
 winston.emitErrs = true;
+
+var logPath = './log';
+if (!fs.existsSync(logPath)) {
+    fs.mkdirSync(logPath, function(err){
+        if (err)
+            logger.error("Error creating " + logPath + ": " + err);
+    });
+}
 
 var logger = new winston.Logger({
     transports: [
         new winston.transports.File({
             level: 'info',
-            filename: './runninglog_server.log',
+            filename: logPath + '/server.log',
             handleExceptions: true,
             json: true,
             maxsize: 5242880, //5MB
