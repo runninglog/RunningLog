@@ -66,8 +66,8 @@ exports.delete = function(req, res, next) {
     var racesModel = req.app.models.races;
     racesModel.findByIdAndRemove(req.params.id, function(err) {
         if (err)
-            res.sendStatus(err);
+            res.sendStatus(500);
 
-        res.sendStatus(204);
+        res.sendStatus(200);
     });
 };

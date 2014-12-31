@@ -36,6 +36,11 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
+app.use(bodyParser.json({
+  extended: true
+}));
+
+
 logger.debug("Overriding 'Express' logger");
 app.use(morgan('combined', { "stream": logger.stream }));
 
