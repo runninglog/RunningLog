@@ -26,10 +26,11 @@ exports.get = function(req, res, next) {
 
 exports.post = function(req, res, next) {
     var racesModel = req.app.models.races;
-    var newRace = new racesModel();
-    newRace.name = req.body.name;
-    newRace.city = req.body.city;
-    newRace.distance = req.body.distance;
+    var newRace = new racesModel({
+        name: req.body.name,
+        city: req.body.city,
+        distance: req.body.distance
+    });
 
     newRace.save(function(err, race) {
         if (err) {
