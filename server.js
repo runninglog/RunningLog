@@ -4,6 +4,9 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var expressLoad = require('express-load');
+var http = require('http');
+var https = require('https');
+var fs = require('fs');
 
 var logger = require('./utils/logger');
 
@@ -26,7 +29,8 @@ db.once('open', function callback() {
 });
 
 // Use environment defined port or 3000
-var port = process.env.PORT || 3000;
+var httpPort = process.env.PORT || 3000;
+var httpsPort = process.env.HTTPSPORT || 3030;
 
 // Create our Express application
 var app = express();
@@ -59,7 +63,17 @@ app.use(function(err, req, res, next) {
     res.sendStatus(500);
 });
 
+var options = {
+  key: fs.readFileSync('certs/key.pem'),
+  cert: fs.readFileSync('certs/cert.pem')
+};
+
 // Start the server
-app.listen(port, function() {
-    logger.info("Listening on " + port);
+http.createServer(app).listen(httpPort, function() {
+    logger.info("HTTP Server listening on " + httpPort);
+});
+
+// Create an HTTPS service identical to the HTTP service.
+https.createServer(options, app).listen(httpsPort, function() {
+    logger.info("HTTPS Server listening on " + httpsPort);
 });
