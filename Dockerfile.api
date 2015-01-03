@@ -9,8 +9,6 @@ RUN apt-add-repository --yes "deb https://deb.nodesource.com/node trusty main"
 RUN apt-get update --yes
 RUN apt-get install --yes --force-yes nodejs
 
-EXPOSE 8443
-
 RUN mkdir /tmp/build
 ADD build /tmp/build
 

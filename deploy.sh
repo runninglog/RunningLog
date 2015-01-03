@@ -58,13 +58,13 @@ function deploy_api() {
 	echo "Deploying the API container..."
 	ln -s -fv ./Dockerfile.api ./Dockerfile
 	docker build -t ${username}/${apiname} .
-	docker run -itd --name api -p 8443 --link mongodb:mongo ${username}/${apiname}
+	docker run -itd --name api -p 8443:8443 --link mongodb:mongo ${username}/${apiname}
 }
 
 build
 setup
 
-#deploy_db
+deploy_db
 deploy_api
 
 rm -fv ./Dockerfile
