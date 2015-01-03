@@ -83,6 +83,13 @@ module.exports = function(){
         });
     });
 
+    userSchema.methods.verifyPassword = function(password, cb) {
+        bcrypt.compare(password, this.password, function(err, isMatch) {
+            if (err) return cb(err);
+            cb(null, isMatch);
+        });
+    };
+
     // Return the Mongoose model
     return mongoose.model('users', userSchema);
 };
