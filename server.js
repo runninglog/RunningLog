@@ -34,7 +34,7 @@ db.once('open', function callback() {
 
 // Use environment defined port or 3000
 var httpPort = process.env.PORT || 3000;
-var httpsPort = process.env.HTTPSPORT || 3030;
+var httpsPort = process.env.HTTPSPORT || 8443;
 
 // Create our Express application
 var app = express();
