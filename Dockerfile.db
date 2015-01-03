@@ -1,0 +1,19 @@
+FROM ubuntu:14.04
+
+RUN apt-get update --yes
+RUN apt-get install --yes software-properties-common apt-transport-https
+
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 7F0CEB10
+RUN apt-add-repository --yes "deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen"
+
+RUN apt-get update --yes
+RUN apt-get install --yes --force-yes mongodb-org
+
+# this will be exported by the docker run anyway
+# so we can persist data outside the container
+RUN mkdir -p /data/db
+VOLUME ["/data/db"]
+
+EXPOSE 27017
+
+CMD ["mongod"]
