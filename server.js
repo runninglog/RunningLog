@@ -12,7 +12,11 @@ var basicStrategy = require('passport-http').BasicStrategy;
 var logger = require('./utils/logger');
 
 // Mongo database support
-mongoose.connect('mongodb://localhost:27017/runninglog', function(err) {
+var mongodb_port = process.env.MONGO_PORT_27017_TCP_PORT || '27017';
+var mongodb_addr = process.env.MONGO_PORT_27017_TCP_ADDR || '127.0.0.1';
+var mongodb_string = 'mongodb://' + mongodb_addr + ':' + mongodb_port + '/runninglog';
+
+mongoose.connect(mongodb_string, function(err) {
     if (err) {
         logger.error('Database not ready! ' + err);
     }
