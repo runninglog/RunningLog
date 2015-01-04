@@ -1,8 +1,7 @@
-// Get the packages we need
+/ Get the packages we need
 var express = require('express');
 var mongoose = require('mongoose');
 var passport = require('passport');
-var basicStrategy = require('passport-http').BasicStrategy;
 var expressLoad = require('express-load');
 var https = require('https');
 
@@ -25,27 +24,8 @@ mongoose.connection.once('open', function() {
     logger.info('Connected to database');
 });
 
-passport.use(new basicStrategy(
-    function(username, password, callback) {
-        app.models.users.findOne({ username: username }, function (err, user) {
-            if (err) { return callback(err); }
-
-            // No user found with that username
-            if (!user) { return callback(null, false); }
-
-            // Make sure the password is correct
-            user.verifyPassword(password, function(err, isMatch) {
-                if (err) { return callback(err); }
-
-                // Password did not match
-                if (!isMatch) { return callback(null, false); }
-
-                // Success
-                return callback(null, user);
-            });
-        });
-    }
-));
+// Passport settings
+require('./config/passport')(passport, app, config);
 
 // Application settings
 require('./config/express')(app, passport);
