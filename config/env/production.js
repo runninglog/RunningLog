@@ -11,5 +11,4 @@ module.exports = {
         key: fs.readFileSync('certs/key.pem'),
         cert: fs.readFileSync('certs/cert.pem')
     }
-
-}
+};

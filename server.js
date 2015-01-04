@@ -1,10 +1,10 @@
 // Get the packages we need
 var express = require('express');
 var mongoose = require('mongoose');
-var expressLoad = require('express-load');
-var https = require('https');
 var passport = require('passport');
 var basicStrategy = require('passport-http').BasicStrategy;
+var expressLoad = require('express-load');
+var https = require('https');
 
 var config = require('config');
 var logger = require('./utils/logger');
