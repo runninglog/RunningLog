@@ -50,20 +50,11 @@ passport.use(new basicStrategy(
 // Application settings
 require('./config/express')(app, passport);
 
+// Error handling routes settings
+require('./config/routes')(app);
+
 // MVC module config (after all the rest, otherwise it may fail)
 expressLoad('models').then('controllers').then('routes').into(app);
-
-// Generic handler for unmapped routes
-app.use(function(req, res) {
-    logger.info('Not found: ' + req.path);
-    res.sendStatus(404);
-});
-
-// Generic handler for internal server errors
-app.use(function(err, req, res, next) {
-    logger.error('Internal server error: ' + err);
-    res.sendStatus(500);
-});
 
 // Start the server
 https.createServer(config.serverOptions, app).listen(config.serverPort, function() {
