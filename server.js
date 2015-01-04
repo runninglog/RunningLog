@@ -1,4 +1,4 @@
-/ Get the packages we need
+// Get the packages we need
 var express = require('express');
 var mongoose = require('mongoose');
 var passport = require('passport');
@@ -30,11 +30,11 @@ require('./config/passport')(passport, app, config);
 // Application settings
 require('./config/express')(app, passport);
 
-// Error handling routes settings
-require('./config/routes')(app);
-
 // MVC module config (after all the rest, otherwise it may fail)
 expressLoad('models').then('controllers').then('routes').into(app);
+
+// Error handling routes settings
+require('./config/routes')(app);
 
 // Start the server
 https.createServer(config.serverOptions, app).listen(config.serverPort, function() {
