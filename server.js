@@ -5,12 +5,14 @@ var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var expressLoad = require('express-load');
 var https = require('https');
-var fs = require('fs');
 var passport = require('passport');
 var basicStrategy = require('passport-http').BasicStrategy;
-var config = require('config');
 
+var config = require('config');
 var logger = require('./utils/logger');
+
+// Create our Express application
+var app = express();
 
 // Connect to mongodb
 var connect = function () {
@@ -24,18 +26,6 @@ mongoose.connection.on('disconnected', connect);
 mongoose.connection.once('open', function() {
     logger.info('Connected to database');
 });
-
-// Create our Express application
-var app = express();
-
-// Use the body-parser package in our application
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
-
-app.use(bodyParser.json({
-  extended: true
-}));
 
 passport.use(new basicStrategy(
     function(username, password, callback) {
@@ -61,6 +51,15 @@ passport.use(new basicStrategy(
 
 app.use(passport.initialize());
 
+// Use the body-parser package in our application
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+
+app.use(bodyParser.json({
+  extended: true
+}));
+
 app.use(morgan('combined', { "stream": logger.stream }));
 
 // MVC module config (after all the rest, otherwise it may fail)
@@ -78,16 +77,7 @@ app.use(function(err, req, res, next) {
     res.sendStatus(500);
 });
 
-// HTTPS only, certificates should not be self-signed in production
-var options = {
-  key: fs.readFileSync('certs/key.pem'),
-  cert: fs.readFileSync('certs/cert.pem')
-};
-
-// Use environment defined port or 8443 
-var serverPort = process.env.SERVER_PORT || 8443;
-
 // Start the server
-https.createServer(options, app).listen(serverPort, function() {
-    logger.info("HTTPS Server listening on " + serverPort);
+https.createServer(config.serverOptions, app).listen(config.serverPort, function() {
+    logger.info("HTTPS Server listening on " + config.serverPort);
 });
