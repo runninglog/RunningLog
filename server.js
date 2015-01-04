@@ -1,8 +1,6 @@
 // Get the packages we need
 var express = require('express');
 var mongoose = require('mongoose');
-var bodyParser = require('body-parser');
-var morgan = require('morgan');
 var expressLoad = require('express-load');
 var https = require('https');
 var passport = require('passport');
@@ -49,18 +47,8 @@ passport.use(new basicStrategy(
     }
 ));
 
-app.use(passport.initialize());
-
-// Use the body-parser package in our application
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
-
-app.use(bodyParser.json({
-  extended: true
-}));
-
-app.use(morgan('combined', { "stream": logger.stream }));
+// Application settings
+require('./config/express')(app, passport);
 
 // MVC module config (after all the rest, otherwise it may fail)
 expressLoad('models').then('controllers').then('routes').into(app);
