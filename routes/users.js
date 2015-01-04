@@ -9,7 +9,7 @@ module.exports = function(app) {
     app.get('/api/users/:id', users.get);
 
     // Modifies
-    app.post('/api/users', isAuthenticated, users.post);
+    app.post('/api/users', users.post);
     app.put('/api/users/:id', isAuthenticated, users.put);
 
     // Removes
