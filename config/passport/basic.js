@@ -1,7 +1,7 @@
 var basicStrategy = require('passport-http').BasicStrategy;
 
 module.exports = function (app, config) {
-    return new basicStrategy(
+    var basic = new basicStrategy(
         function(username, password, callback) {
             app.models.users.findOne({ username: username }, function (err, user) {
                 if (err) { return callback(err); }
@@ -22,4 +22,6 @@ module.exports = function (app, config) {
             });
         }
     );
+
+    return basic;
 };
