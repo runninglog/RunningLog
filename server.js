@@ -8,29 +8,21 @@ var https = require('https');
 var fs = require('fs');
 var passport = require('passport');
 var basicStrategy = require('passport-http').BasicStrategy;
+var config = require('config');
 
 var logger = require('./utils/logger');
 
-// Mongo database support
-var mongodb_port = process.env.MONGO_PORT_27017_TCP_PORT || '27017';
-var mongodb_addr = process.env.MONGO_PORT_27017_TCP_ADDR || '127.0.0.1';
-var mongodb_string = 'mongodb://' + mongodb_addr + ':' + mongodb_port + '/runninglog';
+// Connect to mongodb
+var connect = function () {
+    var options = { server: { socketOptions: { keepAlive: 1 } } };
+    mongoose.connect(config.db, options);
+};
+connect();
 
-mongoose.connect(mongodb_string, function(err) {
-    if (err) {
-        logger.error('Database not ready! ' + err);
-    }
-});
-
-// Generic database monitoring
-var db = mongoose.connection;
-
-db.on('error', function(err) {
-  logger.error('Database connection error: ' + err);
-});
-
-db.once('open', function callback() {
-  logger.info('Connected to database');
+mongoose.connection.on('error', console.log);
+mongoose.connection.on('disconnected', connect);
+mongoose.connection.once('open', function() {
+    logger.info('Connected to database');
 });
 
 // Create our Express application

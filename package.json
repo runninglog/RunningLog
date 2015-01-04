@@ -13,6 +13,9 @@
     "type": "git",
     "url": "https://github.com/artmello/RunningLog.git"
   },
+  "scripts": {
+    "start": "NODE_PATH=./config NODE_ENV=development ./node_modules/.bin/nodemon server.js"
+  },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.10.0",
@@ -27,11 +30,12 @@
   },
   "devDependencies": {
     "grunt": "^0.4.5",
-    "grunt-contrib-jshint": "^0.10.0",
-    "grunt-simple-mocha": "^0.4.0",
     "grunt-contrib-clean": "^0.6.0",
     "grunt-contrib-copy": "^0.7.0",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-simple-mocha": "^0.4.0",
     "mocha": "^2.1.0",
+    "nodemon": "^1.2.1",
     "should": "^4.4.2",
     "supertest": "^0.15.0"
   }
