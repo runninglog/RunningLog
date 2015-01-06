@@ -20,8 +20,7 @@ mongoose.connection.once('open', function() {
 
 var adminUser = new usersModel({
     username: 'admin',
-    //FIXME We should not save a default password, but create the user locked
-    password: 'admin',
+    password: process.env.RUNNINGLOG_DEPLOY_SECRET,
     name: 'RunningLog Admin',
     role: 'admin'
 });
