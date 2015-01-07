@@ -8,7 +8,6 @@ services:
 before_script:
   - sleep 15
   - npm install
-  - npm postinstall
   - npm start
 env:
   global:
