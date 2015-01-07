@@ -9,7 +9,7 @@ before_script:
   - sleep 15
   - npm install
   - NODE_ENV=test RUNNINGLOG_DEPLOY_SECRET=test npm postinstall
-  - NODE_ENV=test npm start
+  - NODE_ENV=test RUNNINGLOG_DEPLOY_SECRET=test npm start
 notifications:
   email:
     - caio1982@gmail.com
