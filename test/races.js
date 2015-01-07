@@ -2,7 +2,7 @@ var supertest = require('supertest');
 var should = require('should');
 
 describe('Races RESTful API', function(){
-    var url = 'http://localhost:3000';
+    var url = 'https://localhost:8443';
     var api = '/api/races/';
     var raceBody = {
         name: 'New Race #1',
