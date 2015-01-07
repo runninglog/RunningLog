@@ -14,7 +14,7 @@
     "url": "https://github.com/artmello/RunningLog.git"
   },
   "scripts": {
-    "test": "grunt lint; grunt build; grunt test",
+    "test": "./node_modules/.bin/grunt lint; ./node_modules/.bin/grunt build; ./node_modules/.bin/grunt test",
     "start": "NODE_PATH=./config NODE_ENV=${NODE_ENV:-development} ./node_modules/.bin/nodemon server.js",
     "postinstall": "NODE_PATH=./config NODE_ENV=${NODE_ENV:-development} node postinstall/bootstrap_db.js"
   },
@@ -32,6 +32,7 @@
   },
   "devDependencies": {
     "grunt": "^0.4.5",
+    "grunt-cli": "^0.1.13",
     "grunt-contrib-clean": "^0.6.0",
     "grunt-contrib-copy": "^0.7.0",
     "grunt-contrib-jshint": "^0.10.0",
