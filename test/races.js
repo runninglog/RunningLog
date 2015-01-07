@@ -2,7 +2,8 @@ var supertest = require('supertest');
 var should = require('should');
 
 describe('Races RESTful API', function(){
-    var url = 'https://localhost:8443';
+    var noauth_url = 'https://localhost:8443';
+    var url = 'https://admin:test@localhost:8443';
     var api = '/api/races/';
     var raceBody = {
         name: 'New Race #1',
@@ -146,6 +147,42 @@ describe('Races RESTful API', function(){
             if (err)
                 throw err;
             (!res.body.raceIdExist(raceId)).should.equal(true);
+            done();
+        });
+    });
+
+    it('posts a race without auth', function(done){
+        supertest(noauth_url)
+        .post(api)
+        .send(raceBody)
+        .expect(401)
+        .end(function(err, res) {
+            if (err)
+                throw err;
+            done();
+        });
+    });
+
+    it('updates a race by id without auth', function(done){
+        raceBody.name = "NEW New Race #1";
+        supertest(noauth_url)
+        .put(api + raceId)
+        .send(raceBody)
+        .expect(401)
+        .end(function(err, res) {
+            if (err)
+                throw err;
+            done();
+        });
+    });
+
+    it('deletes the race without auth', function(done){
+        supertest(noauth_url)
+        .delete(api + raceId)
+        .expect(401)
+        .end(function(err, res) {
+            if (err)
+                throw err;
             done();
         });
     });
