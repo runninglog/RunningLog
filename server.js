@@ -4,12 +4,16 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var expressLoad = require('express-load');
 var https = require('https');
+var cors = require('./cors');
 
 var config = require('config');
 var logger = require('./utils/logger');
 
 // Create our Express application
 var app = express();
+
+// Cross-domain requests support
+app.use(cors);
 
 // Connect to mongodb
 var connect = function () {
