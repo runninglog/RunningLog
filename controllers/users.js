@@ -56,8 +56,10 @@ exports.put = function(req, res, next) {
         user.role = req.body.role;
 
         user.save(function(err) {
-            if (err)
+            if (err) {
+                logger.error(err);
                 res.sendStatus(500);
+            }
 
             res.json(user);
         });
