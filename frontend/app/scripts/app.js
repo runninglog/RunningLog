@@ -15,5 +15,10 @@ angular.module('ngdemoApp', [
   $httpProvider.defaults.withCredentials = true;
   $httpProvider.defaults.headers.common["Accept"] = "application/json";
   $httpProvider.defaults.headers.common["Content-Type"] = "application/json";
+
+  var encodedUserNameAndPassword = btoa('admin' + ':' + 'admin');
+  $httpProvider.defaults.headers.common['Authorization'] = 'Basic ' + encodedUserNameAndPassword;
+  $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
   delete $httpProvider.defaults.headers.common["X-Requested-With"];
 });
