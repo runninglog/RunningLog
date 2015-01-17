@@ -3,17 +3,33 @@
 
   <form novalidate="novalidate" class="form-horizontal">
     <div class="control-group">
-      <label class="control-label" for="inputFirstName">First name:</label>
+      <label class="control-label" for="inputUsername">Username:</label>
 
       <div class="controls">
-        <input type="text" id="inputFirstName" ng-model="user.firstName" placeholder="First name"/>
+        <input type="text" id="inputUsername" ng-model="user.username" placeholder="Usuario"/>
       </div>
     </div>
     <div class="control-group">
-      <label class="control-label" for="inputLastName">Last name:</label>
+      <label class="control-label" for="inputRole">Role:</label>
 
       <div class="controls">
-        <input type="text" id="inputLastName" ng-model="user.lastName" placeholder="Last name"/>
+        <input type="text" id="inputRole" ng-model="user.role"/>
+      </div>
+    </div>
+ 
+    <div class="control-group">
+      <label class="control-label" for="inputPassword">Password:</label>
+
+      <div class="controls">
+        <input type="text" id="inputPassword" ng-model="user.password"/>
+      </div>
+    </div>
+ 
+    <div class="control-group">
+      <label class="control-label" for="inputName">Name:</label>
+
+      <div class="controls">
+        <input type="text" id="inputName" ng-model="user.name" placeholder="Nome"/>
       </div>
     </div>
     <div class="control-group">
