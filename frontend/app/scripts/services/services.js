@@ -20,7 +20,7 @@ services.factory('UsersFactory', function ($resource) {
 services.factory('UserFactory', function ($resource) {
     return $resource(baseUrl + '/api/users/:id', {}, {
         show: { method: 'GET' },
-        update: { method: 'PUT', params: {id: '@id'} },
-        delete: { method: 'DELETE', params: {id: '@id'} }
+        update: { method: 'PUT', params: {id: '@_id'} },
+        delete: { method: 'DELETE', params: {id: '@_id'} }
     })
 });
