@@ -15,6 +15,10 @@ exports.index = function(req, res, next) {
 exports.get = function(req, res, next) {
     var racesModel = req.app.models.races;
     racesModel.findById(req.params.id, function(err, race) {
+        if (!race) {
+            logger.warn('Record not found: ' + req.params.id);
+        }
+
         if (err) {
             logger.error('Get by ID failed: ' + err);
             res.sendStatus(500);
@@ -47,7 +51,7 @@ exports.put = function(req, res, next) {
     racesModel.findById(req.params.id, function(err, race) {
         if (err) {
             logger.warn('Record to update not found: ' + req.params.id);
-            res.sendStatus(500);
+            res.sendStatus(404);
         }
 
         race.name = req.body.name;
@@ -55,8 +59,10 @@ exports.put = function(req, res, next) {
         race.distance = req.body.distance;
 
         race.save(function(err) {
-            if (err)
-                res.sendStatus(500);
+            if (err) {
+                logger.warn('Conflict, record exists? ' + err);
+                res.sendStatus(409);
+            }
 
             res.json(race);
         });
@@ -66,9 +72,11 @@ exports.put = function(req, res, next) {
 exports.delete = function(req, res, next) {
     var racesModel = req.app.models.races;
     racesModel.findByIdAndRemove(req.params.id, function(err) {
-        if (err)
+        if (err) {
+            logger.error('Post removal failed: ' + err);
             res.sendStatus(500);
+        }
 
-        res.sendStatus(200);
+        res.sendStatus(204);
     });
 };
