@@ -113,7 +113,7 @@ describe('Races RESTful API', function(){
     it('deletes the race', function(done){
         supertest(url)
         .delete(api + raceId)
-        .expect(200)
+        .expect(204)
         .end(function(err, res) {
             if (err)
                 throw err;
