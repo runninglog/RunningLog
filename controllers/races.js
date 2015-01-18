@@ -33,6 +33,7 @@ exports.post = function(req, res, next) {
     var newRace = new racesModel({
         name: req.body.name,
         city: req.body.city,
+        date: req.body.date,
         distance: req.body.distance
     });
 
@@ -56,6 +57,7 @@ exports.put = function(req, res, next) {
 
         race.name = req.body.name;
         race.city = req.body.city;
+        race.date = req.body.date;
         race.distance = req.body.distance;
 
         race.save(function(err) {
