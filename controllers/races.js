@@ -77,8 +77,8 @@ exports.delete = function(req, res, next) {
         if (err) {
             logger.error('Post removal failed: ' + err);
             res.sendStatus(500);
+        } else {
+            res.sendStatus(204);
         }
-
-        res.sendStatus(204);
     });
 };
