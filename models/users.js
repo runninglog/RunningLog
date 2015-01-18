@@ -1,3 +1,5 @@
+var logger = require('../utils/logger');
+
 module.exports = function(){
     // Load required packages
     var mongoose = require('mongoose');
@@ -37,16 +39,29 @@ module.exports = function(){
         username: {
             validate: usernameValidator,
             type: String,
-            unique: true,
             required: true,
             trim: true,
+            index: {
+                unique: true
+            },
         },
+        // To be updated by bcrypt
         password: {
             type: String,
             required: true,
             trim: true
         },
+        // To be updated by bcrypt
+        salt: {
+            type: String,
+            required: false
+        },
         created: {
+            type: Date,
+            default: Date.now,
+            required: false
+        },
+        updated: {
             type: Date,
             default: Date.now,
             required: false
@@ -61,6 +76,10 @@ module.exports = function(){
             type: String,
             enum: ['admin', 'user'],
             required: true
+        },
+        locked: {
+            type: Boolean,
+            required: true
         }
     });
 
@@ -69,24 +88,37 @@ module.exports = function(){
         var user = this;
 
         // Break out if the password hasn't changed
-        if (!user.isModified('password')) return callback();
+        if (!user.isModified('password')) {
+            return callback();
+        }
 
         // Password changed so we need to hash it
         bcrypt.genSalt(10, function(err, salt) {
-            if (err) return callback(err);
+            if (err) {
+                logger.error('Password salting failed: ' + err);
+                return callback(err);
+            }
 
             bcrypt.hash(user.password, salt, null, function(err, hash) {
-                if (err) return callback(err);
+                if (err) {
+                    logger.error('Password hashing failed: ' + err);
+                    return callback(err);
+                }
                 user.password = hash;
+                user.salt = salt;
                 callback();
             });
         });
     });
 
-    userSchema.methods.verifyPassword = function(password, cb) {
+    userSchema.methods.verifyPassword = function(password, callback) {
         bcrypt.compare(password, this.password, function(err, isMatch) {
-            if (err) return cb(err);
-            cb(null, isMatch);
+            if (err) {
+                // This is actually logged first by the main server code
+                logger.warn('Password mismatch: ' + password);
+                return callback(err);
+            }
+            callback(null, isMatch);
         });
     };
 
