@@ -9,3 +9,4 @@ Serviço usando Node.js, Express e MongoDB para gerenciar calendários de Corrid
 * Outros Métodos de Autenticação (Google, Facebook, etc)
 * Evolução dos modelos para armazenar mais informações osbre as corridas
 * Aplicação Web consumindo a API disponibilizada pelo servidor
+* Investigar restricões com delayed e microthrottle pra API não arriar
