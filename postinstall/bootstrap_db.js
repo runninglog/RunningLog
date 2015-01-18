@@ -22,7 +22,8 @@ var adminUser = new usersModel({
     username: 'admin',
     password: process.env.RUNNINGLOG_DEPLOY_SECRET,
     name: 'RunningLog Admin',
-    role: 'admin'
+    role: 'admin',
+    locked: false
 });
 
 adminUser.save(function(err, user) {
