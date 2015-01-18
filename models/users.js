@@ -111,8 +111,8 @@ module.exports = function(){
         });
     });
 
-    userSchema.methods.verifyPassword = function(password, callback) {
-        bcrypt.compare(password, this.password, function(err, isMatch) {
+    userSchema.methods.verifyPassword = function(passwordTried, password, callback) {
+        bcrypt.compare(passwordTried, password, function(err, isMatch) {
             if (err) {
                 // This is actually logged first by the main server code
                 logger.warn('Password mismatch: ' + password);
