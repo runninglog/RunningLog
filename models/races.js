@@ -4,9 +4,51 @@ module.exports = function(){
 
     // Define our race schema
     var raceSchema   = new mongoose.Schema({
-        name: String,
-        city: String,
-        distance: Number
+        name: {
+            type: String,
+            required: true,
+            trim: true
+        },
+        city: {
+            type: String,
+            required: true,
+            trim: true
+        },
+        date: {
+            type: Date,
+            required: true
+        },
+        distance: {
+            type: Number,
+            required: true,
+            trim: true
+        },
+
+        // All fields from here below should be
+        // understood as a "extra form" or optional info
+        website: {
+            type: String,
+            required: false
+        },
+        venue: {
+            type: String,
+            required: false,
+            trim: true
+        },
+        poster: {
+            type: String,
+            required: false
+        },
+        created: {
+            type: Date,
+            default: Date.now,
+            required: false
+        },
+        updated: {
+            type: Date,
+            default: Date.now,
+            required: false
+        }
     });
 
     // Return the Mongoose model

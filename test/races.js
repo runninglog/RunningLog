@@ -8,6 +8,7 @@ describe('Races RESTful API', function(){
     var raceBody = {
         name: 'New Race #1',
         city: 'City #1',
+        date: '2014-02-10T10:50:42.389Z',
         distance: '1'
     };
     var raceId;
@@ -19,11 +20,14 @@ describe('Races RESTful API', function(){
         .expect('Content-Type', /json/)
         .expect(200)
         .end(function(err, res) {
-            if (err)
+            if (err) {
                 throw err;
+            }
+
             res.body.should.have.property('_id');
             res.body.name.should.equal(raceBody.name);
             res.body.city.should.equal(raceBody.city);
+            res.body.date.should.equal(raceBody.date);
             res.body.distance.should.equal(parseInt(raceBody.distance));
             raceId = res.body._id;
             done();
@@ -41,6 +45,7 @@ describe('Races RESTful API', function(){
             res.body._id.should.equal(raceId);
             res.body.name.should.equal(raceBody.name);
             res.body.city.should.equal(raceBody.city);
+            res.body.date.should.equal(raceBody.date);
             res.body.distance.should.equal(parseInt(raceBody.distance));
             done();
         });
@@ -69,6 +74,7 @@ describe('Races RESTful API', function(){
                 throw err;
             res.body.name.should.equal(raceBody.name);
             res.body.city.should.equal(raceBody.city);
+            res.body.date.should.equal(raceBody.date);
             res.body.distance.should.equal(parseInt(raceBody.distance));
             done();
         });
@@ -85,6 +91,7 @@ describe('Races RESTful API', function(){
             res.body._id.should.equal(raceId);
             res.body.name.should.equal(raceBody.name);
             res.body.city.should.equal(raceBody.city);
+            res.body.date.should.equal(raceBody.date);
             res.body.distance.should.equal(parseInt(raceBody.distance));
             done();
         });
