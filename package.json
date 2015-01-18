@@ -2,11 +2,16 @@
   "private": true,
   "name": "RunningLog",
   "version": "0.0.1",
+  "readmeFilename": "README.markdown",
   "description": "Monitora o calendário de Corridas de Rua",
   "license": "MIT",
   "author": {
     "name": "Arthur Mello",
     "email": "arthur.mello85@gmail.com"
+  },
+  "contributors": {
+    "name": "Caio Begotti",
+    "email": "caio1982@gmail.com"
   },
   "main": "server.js",
   "repository": {
