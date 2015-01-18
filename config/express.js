@@ -1,6 +1,6 @@
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
-
+var cors = require('cors');
 var logger = require('../utils/logger');
 
 module.exports = function (app, passport) {
@@ -11,4 +11,7 @@ module.exports = function (app, passport) {
     app.use(morgan('combined', { "stream": logger.stream }));
 
     app.use(passport.initialize());
+
+    // Cross-domain requests support
+    app.use(cors);
 };

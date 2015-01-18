@@ -4,7 +4,6 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var expressLoad = require('express-load');
 var https = require('https');
-var cors = require('./cors');
 
 var config = require('config');
 var logger = require('./utils/logger');
@@ -12,20 +11,23 @@ var logger = require('./utils/logger');
 // Create our Express application
 var app = express();
 
-// Cross-domain requests support
-app.use(cors);
-
 // Connect to mongodb
 var connect = function () {
     var options = { server: { socketOptions: { keepAlive: 1 } } };
     mongoose.connect(config.db, options);
 };
+
 connect();
 
-mongoose.connection.on('error', console.log);
+mongoose.connection.on('error', function() {
+    if (err) {
+        logger.error('Database not ready! ' + err);
+    }
+});
+
 mongoose.connection.on('disconnected', connect);
 mongoose.connection.once('open', function() {
-    logger.info('Connected to database');
+    logger.info('Connected to database!');
 });
 
 // Passport settings
