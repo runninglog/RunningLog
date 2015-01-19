@@ -23,19 +23,19 @@ module.exports = function(){
             required: true,
             trim: true
         },
-
+        venue: {
+            type: String,
+            required: true,
+            trim: true
+        },
+ 
         // All fields from here below should be
         // understood as a "extra form" or optional info
         website: {
             type: String,
             required: false
         },
-        venue: {
-            type: String,
-            required: false,
-            trim: true
-        },
-        poster: {
+       poster: {
             type: String,
             required: false
         },
