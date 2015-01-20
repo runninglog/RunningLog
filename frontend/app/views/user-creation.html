@@ -1,5 +1,63 @@
 <div class="container">
-  <h1>Create a new user</h1>
+  <h1>Novo usuário</h1>
+
+<form class="form-horizontal">
+<fieldset>
+
+<!-- Form name -->
+<legend>Formulário para novos usuários internos do sistema</legend>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="textinput">Nome</label>  
+  <div class="col-md-5">
+  <input id="textinput" name="textinput" type="text" placeholder="name" class="form-control input-md" required="">
+  <span class="help-block">Nome e sobrenome, campo livre</span>  
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="username">Usuário</label>  
+  <div class="col-md-5">
+  <input id="username" name="username" type="text" placeholder="" class="form-control input-md" required="">
+  <span class="help-block">Seu usuário para login</span>  
+  </div>
+</div>
+
+<!-- Password input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="password">Senha</label>
+  <div class="col-md-5">
+    <input id="password" name="password" type="password" placeholder="" class="form-control input-md" required="">
+    <span class="help-block">Sua senha secreta</span>
+  </div>
+</div>
+
+<!-- Select Basic -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="role">Perfil</label>
+  <div class="col-md-5">
+    <select id="role" name="role" class="form-control">
+      <option value="user">Usuário comum</option>
+      <option value="admin">Administrador</option>
+    </select>
+  </div>
+</div>
+
+<!-- Multiple Checkboxes (inline) -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="locked">Habilitado</label>
+  <div class="col-md-4">
+    <label class="checkbox-inline" for="locked-0">
+      <input type="checkbox" name="locked" id="locked-0" value="true">
+    </label>
+  </div>
+</div>
+
+</fieldset>
+</form>
+
 
   <form novalidate="novalidate" class="form-horizontal">
     <div class="control-group">
