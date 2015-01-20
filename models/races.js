@@ -35,7 +35,7 @@ module.exports = function(){
             type: String,
             required: false
         },
-       poster: {
+        poster: {
             type: String,
             required: false
         },
