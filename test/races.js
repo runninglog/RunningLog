@@ -42,8 +42,10 @@ describe('Races RESTful API', function(){
         .expect('Content-Type', /json/)
         .expect(200)
         .end(function(err, res) {
-            if (err)
+            if (err) {
                 throw err;
+            }
+
             res.body._id.should.equal(raceId);
             res.body.name.should.equal(raceBody.name);
             res.body.city.should.equal(raceBody.city);
@@ -59,8 +61,10 @@ describe('Races RESTful API', function(){
         .get(api + 'UNKNOWN_ID')
         .expect(500)
         .end(function(err, res) {
-            if (err)
+            if (err) {
                 throw err;
+            }
+
             done();
         });
     });
@@ -73,8 +77,10 @@ describe('Races RESTful API', function(){
         .expect('Content-Type', /json/)
         .expect(200)
         .end(function(err, res) {
-            if (err)
+            if (err) {
                 throw err;
+            }
+
             res.body.name.should.equal(raceBody.name);
             res.body.city.should.equal(raceBody.city);
             res.body.date.should.equal(raceBody.date);
@@ -90,8 +96,10 @@ describe('Races RESTful API', function(){
         .expect('Content-Type', /json/)
         .expect(200)
         .end(function(err, res) {
-            if (err)
+            if (err) {
                 throw err;
+            }
+
             res.body._id.should.equal(raceId);
             res.body.name.should.equal(raceBody.name);
             res.body.city.should.equal(raceBody.city);
@@ -104,18 +112,22 @@ describe('Races RESTful API', function(){
 
     it('checks that new race is get with all races', function(done){
         Array.prototype.raceIdExist = function(raceId) {
-            for(var i = 0; i < this.length; i++) {
-                if(this[i]._id === raceId)
+            for (var i = 0; i < this.length; i++) {
+                if (this[i]._id === raceId) {
                     return true;
+                }
             }
+
             return false;
         };
         supertest(url)
         .get(api)
         .expect(200)
         .end(function(err, res) {
-            if (err)
+            if (err) {
                 throw err;
+            }
+
             (res.body.length >= 1).should.equal(true);
             (res.body.raceIdExist(raceId)).should.equal(true);
             done();
@@ -127,8 +139,10 @@ describe('Races RESTful API', function(){
         .delete(api + raceId)
         .expect(204)
         .end(function(err, res) {
-            if (err)
+            if (err) {
                 throw err;
+            }
+
             done();
         });
     });
@@ -138,26 +152,32 @@ describe('Races RESTful API', function(){
         .delete(api + 'UNKNOWN_ID')
         .expect(500)
         .end(function(err, res) {
-            if (err)
+            if (err) {
                 throw err;
+            }
+
             done();
         });
     });
 
     it('checks that the race does not exist anymore', function(done){
         Array.prototype.raceIdExist = function(raceId) {
-            for(var i = 0; i < this.length; i++) {
-                if(this[i]._id === raceId)
+            for (var i = 0; i < this.length; i++) {
+                if (this[i]._id === raceId) {
                     return true;
+                }
             }
+
             return false;
         };
         supertest(url)
         .get(api)
         .expect(200)
         .end(function(err, res) {
-            if (err)
+            if (err) {
                 throw err;
+            }
+
             (!res.body.raceIdExist(raceId)).should.equal(true);
             done();
         });
@@ -169,8 +189,10 @@ describe('Races RESTful API', function(){
         .send(raceBody)
         .expect(401)
         .end(function(err, res) {
-            if (err)
+            if (err) {
                 throw err;
+            }
+
             done();
         });
     });
@@ -182,8 +204,10 @@ describe('Races RESTful API', function(){
         .send(raceBody)
         .expect(401)
         .end(function(err, res) {
-            if (err)
+            if (err) {
                 throw err;
+            }
+
             done();
         });
     });
@@ -193,8 +217,10 @@ describe('Races RESTful API', function(){
         .delete(api + raceId)
         .expect(401)
         .end(function(err, res) {
-            if (err)
+            if (err) {
                 throw err;
+            }
+
             done();
         });
     });
