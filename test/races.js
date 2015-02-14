@@ -70,7 +70,7 @@ describe('Races RESTful API', function(){
     });
 
     it('updates a race by id', function(done){
-        raceBody.name = "NEW New Race #1";
+        raceBody.name = "Updated Race #1";
         supertest(url)
         .put(api + raceId)
         .send(raceBody)
