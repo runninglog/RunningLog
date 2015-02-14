@@ -104,6 +104,7 @@ describe('Users RESTful API', function(){
             res.body.name.should.equal(userBody.name);
             res.body.username.should.equal(userBody.username);
             res.body.password.should.not.equal(userBody.password);
+            res.body.updated.should.not.equal(res.body.created);
             res.body.role.should.equal(userBody.role);
             res.body.locked.should.equal(true);
             done();
