@@ -70,7 +70,9 @@ describe('Users RESTful API', function(){
     });
 
     it('updates an user by id', function(done){
-        userBody.name = "NEW New User #1";
+        userBody.name = "Admin User #1";
+        userBody.role = 'admin';
+        userBody.locked = false;
         supertest(url)
         .put(api + userId)
         .send(userBody)
@@ -85,7 +87,7 @@ describe('Users RESTful API', function(){
             res.body.username.should.equal(userBody.username);
             res.body.password.should.not.equal(userBody.password);
             res.body.role.should.equal(userBody.role);
-            res.body.locked.should.equal(true);
+            res.body.locked.should.equal(false);
             done();
         });
     });
@@ -106,7 +108,7 @@ describe('Users RESTful API', function(){
             res.body.password.should.not.equal(userBody.password);
             res.body.updated.should.not.equal(res.body.created);
             res.body.role.should.equal(userBody.role);
-            res.body.locked.should.equal(true);
+            res.body.locked.should.equal(false);
             done();
         });
     });
