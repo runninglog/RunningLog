@@ -14,4 +14,7 @@ module.exports = function (app, passport) {
 
     // Cross-domain requests support
     app.use(cors);
+
+    // Pretty print
+    app.set('json spaces', 2);
 };

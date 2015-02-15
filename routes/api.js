@@ -3,5 +3,8 @@ module.exports = function(app) {
     var api = app.controllers.api;
 
     app.get('/', api.index);
-    app.get('/api', api.version);
+
+    if (process.env.NODE_ENV !== 'production') {
+        app.get('/api', api.documentation);
+    }
 };

@@ -3,7 +3,6 @@ exports.index = function(req, res, next) {
     res.sendStatus(200);
 };
 
-exports.version = function(req, res, next) {
-    // API version
-    res.sendStatus('1');
+exports.documentation = function(req, res, next) {
+    res.json(req.app._router.stack);
 };
